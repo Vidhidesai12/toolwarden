@@ -1,0 +1,34 @@
+# Run the whole demo:  docker compose up -d --build   then open http://127.0.0.1:8090 (admin token: tw-demo-admin)
+# Rug-pull demo:       docker compose exec demo node dist/demo/rugpull.js on      (and "off" to undo)
+# All tokens below are local demo values; never reuse them anywhere real.
+
+services:
+  # Two made-up MCP servers to protect: "bank" (:9101) and "docs" (:9102).
+  demo:
+    build: .
+    command: ["node", "dist/demo/servers.js"]
+    environment:
+      DEMO_STATE: /tmp/demo-state.json
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:9101/health && wget -qO- http://127.0.0.1:9102/health"]
+      interval: 5s
+      retries: 12
+
+  toolwarden:
+    build: .
+    ports:
+      - "127.0.0.1:8090:8090"
+    environment:
+      UPSTREAM_BANK_URL: http://demo:9101/mcp
+      UPSTREAM_DOCS_URL: http://demo:9102/mcp
+      UPSTREAM_BANK_TOKEN: bank-readonly-token
+      UPSTREAM_BANK_OPERATOR_TOKEN: bank-operator-token
+      UPSTREAM_DOCS_TOKEN: docs-token
+      ALLOWED_HOSTS: 127.0.0.1:8090,localhost:8090
+    volumes:
+      - toolwarden-data:/data   # audit log and approvals survive restarts
+    depends_on:
+      demo: { condition: service_healthy }
+
+volumes:
+  toolwarden-data:

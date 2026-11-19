@@ -1,0 +1,58 @@
+{
+  "port": 8090,
+  "allowedHosts": [
+    "127.0.0.1:8090",
+    "localhost:8090"
+  ],
+  "allowedOrigins": [],
+  "upstreams": [
+    {
+      "name": "bank",
+      "url": "http://127.0.0.1:9101/mcp",
+      "tokenEnv": "UPSTREAM_BANK_TOKEN"
+    },
+    {
+      "name": "docs",
+      "url": "http://127.0.0.1:9102/mcp",
+      "tokenEnv": "UPSTREAM_DOCS_TOKEN"
+    }
+  ],
+  "clients": [
+    {
+      "name": "assistant-readonly",
+      "tokenSha256": "1859cb6aab7406e4f3fe79c8bb8c02097ede4339cf43d22a635cc7c0e651e117",
+      "allowTools": [
+        "bank__get_*",
+        "bank__list_*",
+        "docs__*"
+      ],
+      "denyTools": [],
+      "callsPerMinute": 30,
+      "argumentLimits": []
+    },
+    {
+      "name": "assistant-operator",
+      "tokenSha256": "7b098fdc6f5780722d1200456039dd83b8143b20cf2ac8f269bac2d41b2eec9b",
+      "allowTools": [
+        "*"
+      ],
+      "denyTools": [],
+      "callsPerMinute": 20,
+      "argumentLimits": [
+        {
+          "tool": "bank__transfer",
+          "field": "amount",
+          "max": 500
+        }
+      ],
+      "upstreamTokenEnv": {
+        "bank": "UPSTREAM_BANK_OPERATOR_TOKEN"
+      }
+    }
+  ],
+  "pinsFile": "pins.json",
+  "auditFile": "audit.jsonl",
+  "maxArgumentBytes": 4096,
+  "catalogRefreshSeconds": 10,
+  "adminTokenSha256": "b99be74bda09db92bdab648734ed21224b4f2c6b3468647c8c651a3e9583f4b9"
+}

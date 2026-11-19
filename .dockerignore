@@ -1,0 +1,10 @@
+node_modules
+dist
+web/node_modules
+web/dist
+.env
+*.jsonl
+.demo-state.json
+coverage
+test
+.git

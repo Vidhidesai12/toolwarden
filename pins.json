@@ -1,0 +1,167 @@
+{
+  "bank__get_balance": {
+    "fingerprint": "01f6964e7824558a8fa83de73ac8c989cf9c14527f4e8800450cb98236dcc8a4",
+    "definition": {
+      "name": "get_balance",
+      "title": "Account balance",
+      "description": "Current balance of one account.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "pattern": "^ACC-\\d{4}$"
+          }
+        },
+        "required": [
+          "account"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    "approvedBy": "cli",
+    "approvedAt": "2026-11-19T04:23:47.355Z"
+  },
+  "bank__get_customer_note": {
+    "fingerprint": "85e437d4cd295d9b4d6de6e4c8c5e4725f54a88c6ff8c47bfee86d620527c14d",
+    "definition": {
+      "name": "get_customer_note",
+      "title": "Customer note",
+      "description": "The free-text note a support agent left on a customer.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "pattern": "^ACC-\\d{4}$"
+          }
+        },
+        "required": [
+          "account"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    "approvedBy": "cli",
+    "approvedAt": "2026-11-19T04:23:47.360Z"
+  },
+  "bank__list_transactions": {
+    "fingerprint": "b5f34de83e4f3015b68fa55a1da84139948a35a9128d77fca7f62d1a14b33a7e",
+    "definition": {
+      "name": "list_transactions",
+      "title": "Recent transactions",
+      "description": "The latest transactions of one account.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "pattern": "^ACC-\\d{4}$"
+          }
+        },
+        "required": [
+          "account"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    "approvedBy": "cli",
+    "approvedAt": "2026-11-19T04:23:47.360Z"
+  },
+  "bank__transfer": {
+    "fingerprint": "3e1e0c59b8313a57b96e331193587e79c38ba620d68a51c7919befe7a6bc9651",
+    "definition": {
+      "name": "transfer",
+      "title": "Transfer money",
+      "description": "Move money between two accounts. The person is asked to confirm first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{2}$"
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "amount"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false
+      }
+    },
+    "approvedBy": "cli",
+    "approvedAt": "2026-11-19T04:23:47.360Z"
+  },
+  "docs__search_docs": {
+    "fingerprint": "25df665ca1fa99acb64c307c414296a0123a991cd2b46412bec59583fed1113a",
+    "definition": {
+      "name": "search_docs",
+      "title": "Search documents",
+      "description": "Find internal policy documents by keyword.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    "approvedBy": "cli",
+    "approvedAt": "2026-11-19T04:23:47.360Z"
+  },
+  "docs__summarize_doc": {
+    "fingerprint": "a9531443e92e5a8e4a559911e633cbee3d8b0848b426364168697139308671c3",
+    "definition": {
+      "name": "summarize_doc",
+      "title": "Summarize document",
+      "description": "Summarize one internal document in five bullet points.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 20
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true
+      }
+    },
+    "approvedBy": "cli",
+    "approvedAt": "2026-11-19T04:23:47.360Z"
+  }
+}
